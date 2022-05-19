@@ -9,41 +9,31 @@ class DbManager {
                 dbManager = DbManager()
             return dbManager!!
         }
-
-        enum class Status {
-            NO_USER_IN_DB,
-            USER_ALREADY_IN_DB,
-            INCORRECT_PASSWORD,
-            SERVER_ERROR,
-            ALL_OK
-        }
     }
 
-    public var userId: Int = -1
+    fun findUser(email: String): User? = User(
+        -1,
+        "none",
+        "none",
+        "none",
+        mutableListOf()
+    ) // TODO:  поиск клиента в БД по email и возврат его User объекта
 
-    fun login(login: String, password: String): Status {
-        //todo: Вход по логину и зашифрованному паролю; userId получаем из таблицы
-
-        return Status.NO_USER_IN_DB
+    fun createUser(user: User):Boolean{
+        return true
     }
 
-    private fun connectToDB(ConnectionData: String) {
-
-    }
-
-    fun register(username: String, login: String, password: String): Status {
-        //todo:Регистрация с занесением логина, имени и зашифрованного пароля; генерим новый userId
-        return Status.ALL_OK
-    }
-
-    fun getNotes(): List<Task> {
+    fun getTasks(userId: Int): List<Task> {
         val tasks = mutableListOf<Task>()
         //todo: получение задачи с сервера
         return tasks
     }
 
-    fun addNote(task: Task): Boolean {
+    fun addTask(userId: Int, task: Task): Boolean {
         //todo: добавление задачи на сервер
         return true
     }
+
+    fun getLastId():Int = 1
+
 }
