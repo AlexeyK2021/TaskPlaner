@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import ru.alexeyk2021.taskplanner.DbManager
+import ru.alexeyk2021.taskplanner.LoginManager
+import ru.alexeyk2021.taskplanner.Status
 import ru.alexeyk2021.taskplanner.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var dbManager: DbManager
+    private lateinit var loginManager: LoginManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,23 +23,23 @@ class LoginActivity : AppCompatActivity() {
 
         val loginText = binding.emailText
         val passwordText = binding.passwdText
-        dbManager = DbManager.getInstance()
+        loginManager = LoginManager.getInstance()
 
         loginButton.setOnClickListener {
             if (loginText.text.toString() != "" && passwordText.text.toString() != "") {
-                val loginResult = dbManager.login(
+                val loginResult = loginManager.login(
                     loginText.text.toString(),
                     passwordText.text.toString()
                 )
                 when (loginResult) {
-                    DbManager.Companion.Status.ALL_OK -> {
+                    Status.ALL_OK -> {
                         makeMessage("Авторизация успешна")
                         TODO("ВХОД НА СЕРВЕР")
                     }
-                    DbManager.Companion.Status.INCORRECT_PASSWORD -> {
+                    Status.INCORRECT_PASSWORD -> {
                         makeMessage("Авторизация неуспешна. Неверный пароль")
                     }
-                    DbManager.Companion.Status.NO_USER_IN_DB -> {
+                    Status.NO_USER_IN_DB -> {
                         makeMessage("Авторизация неуспешна. Вы не зарегистрированы")
                     }
                     else -> {
@@ -58,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (dbManager.userId > -1) finish()
+        if (loginManager.isLogged()) finish()
     }
 
     private fun makeMessage(text: String) {

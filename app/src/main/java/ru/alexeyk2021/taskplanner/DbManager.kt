@@ -1,5 +1,11 @@
 package ru.alexeyk2021.taskplanner
 
+import android.util.Log
+import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.model.Filters.eq
+import org.bson.Document
+
 
 class DbManager {
     companion object {
@@ -19,7 +25,7 @@ class DbManager {
         mutableListOf()
     ) // TODO:  поиск клиента в БД по email и возврат его User объекта
 
-    fun createUser(user: User):Boolean{
+    fun createUser(user: User): Boolean {
         return true
     }
 
@@ -34,6 +40,15 @@ class DbManager {
         return true
     }
 
-    fun getLastId():Int = 1
+    fun getLastId(): Int = 1     //Todo: определение по последнему элементу БД
 
+    fun connectToDb() {
+        val uri = "<connection string uri>"
+        MongoClients.create(uri).use { mongoClient ->
+            val database = mongoClient.getDatabase("sample_mflix")
+            val collection: MongoCollection<Document> = database.getCollection("movies")
+            val doc: Document = collection.find(eq("title", "Back to the Future")).first() as Document
+            Log.d("Connect to DB method", doc.toJson())
+        }
+    }
 }
