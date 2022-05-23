@@ -3,8 +3,7 @@ package ru.alexeyk2021.taskplanner.activityLogic
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import ru.alexeyk2021.taskplanner.DbManager
+import android.util.Log
 import ru.alexeyk2021.taskplanner.LoginManager
 import ru.alexeyk2021.taskplanner.Status
 import ru.alexeyk2021.taskplanner.databinding.ActivityLoginBinding
@@ -34,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
                 when (loginResult) {
                     Status.ALL_OK -> {
                         makeMessage("Авторизация успешна")
-                        TODO("ВХОД НА СЕРВЕР")
+                        finish()
                     }
                     Status.INCORRECT_PASSWORD -> {
                         makeMessage("Авторизация неуспешна. Неверный пароль")
@@ -64,10 +63,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun makeMessage(text: String) {
-        Toast.makeText(
-            this,
-            text,
-            Toast.LENGTH_LONG
-        ).show()
+//        Toast.makeText(
+//            this,
+//            text,
+//            Toast.LENGTH_LONG
+//        ).show()
+        Log.d("LOGIN_ACTIVITY", text)
     }
 }

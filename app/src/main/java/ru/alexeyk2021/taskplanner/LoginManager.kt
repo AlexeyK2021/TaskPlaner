@@ -1,6 +1,10 @@
 package ru.alexeyk2021.taskplanner
 
+import android.util.Log
+import ru.alexeyk2021.taskplanner.dataClasses.User
 import java.math.BigInteger
+
+
 import java.security.MessageDigest
 
 enum class Status {
@@ -8,6 +12,7 @@ enum class Status {
     USER_ALREADY_IN_DB, //findUser(email) != 1
     INCORRECT_PASSWORD, //findUser(email)
     SERVER_ERROR,
+    CONNECTION_ERROR,
     ALL_OK
 }
 
@@ -21,18 +26,20 @@ class LoginManager {
         }
     }
 
-    private lateinit var user: User
+    public var currentUser: User? = null
 
     fun login(email: String, password: String): Status {
         //todo: Вход по логину и зашифрованному паролю; userId получаем из таблицы
-        val user: User? = DbManager.getInstance().findUser(email)
+        val dbManager = DbManager.getInstance()
+        dbManager.connect()
+        val user: User? = dbManager.findUser(email)
 
         if (user == null) return Status.NO_USER_IN_DB
         else if (md5(password) == user.password) {
-            this.user = user
+            currentUser = user
             return Status.ALL_OK
         }
-        return Status.SERVER_ERROR
+        return Status.INCORRECT_PASSWORD
     }
 
 //    private fun connectToDB(ConnectionData: String) {
@@ -41,15 +48,17 @@ class LoginManager {
 
     fun register(username: String, email: String, password: String): Status {
         //todo:Регистрация с занесением логина, имени и зашифрованного пароля; генерим новый userId
-        val dbManager = DbManager.getInstance()
 
-        val user = User(dbManager.getLastId(), email, password, username, mutableListOf())
-        if (dbManager.findUser(email) != null) return Status.USER_ALREADY_IN_DB
-        else if (dbManager.createUser(user)) return Status.ALL_OK
-        else return Status.SERVER_ERROR
+        val dbManager = DbManager.getInstance()
+        val encryptedPassword = md5(password)
+        if (dbManager.connect() != Status.ALL_OK) Log.d("Connect", "Connection error!!!")
+        val user = User(dbManager.getUserLastId() + 1, email, encryptedPassword, username)
+        if (dbManager.findUser(email) != null)
+            return Status.USER_ALREADY_IN_DB
+        else return dbManager.createUser(user)
     }
 
-    fun isLogged(): Boolean = user.id > -1
+    fun isLogged(): Boolean = currentUser != null
 
     private fun md5(input: String): String {
         val md = MessageDigest.getInstance("MD5")

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ru.alexeyk2021.taskplanner">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,11 +17,11 @@
         <activity
             android:name=".activityLogic.RegisterActivity"
             android:exported="false"
-            android:label="@string/title_activity_register"/>
+            android:label="@string/title_activity_register" />
         <activity
             android:name=".activityLogic.LoginActivity"
             android:exported="false"
-            android:label="@string/title_activity_login"/>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".activityLogic.MainActivity"
             android:exported="true">

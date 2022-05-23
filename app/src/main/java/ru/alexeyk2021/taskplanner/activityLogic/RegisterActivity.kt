@@ -18,7 +18,6 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val usernameText = binding.username
         val emailText = binding.emailText
         val passwordText = binding.passwdText
@@ -27,7 +26,8 @@ class RegisterActivity : AppCompatActivity() {
         val loginManager = LoginManager.getInstance()
 
         val loginDataEmail = intent.getSerializableExtra("EMAIL")
-        emailText.text = Editable.Factory.getInstance().newEditable(loginDataEmail!!.toString())
+        if (loginDataEmail != null) emailText.text =
+            Editable.Factory.getInstance().newEditable(loginDataEmail.toString())
 
         registerButton.setOnClickListener {
             val loginResult = loginManager.register(
