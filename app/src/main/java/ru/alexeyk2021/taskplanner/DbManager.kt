@@ -23,6 +23,9 @@ class DbManager {
             return dbManager!!
         }
     }
+//    val realmSync by lazy {
+//        App(AppConfiguration.Builder(BuildConfig.RealmAppId).build())
+//    }
 
     private var databaseName: String = "myDB"
     private lateinit var mongoClient: MongoClient
