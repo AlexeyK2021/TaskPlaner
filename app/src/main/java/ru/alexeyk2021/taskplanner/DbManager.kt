@@ -3,6 +3,7 @@ package ru.alexeyk2021.taskplanner
 import android.util.Log
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.query
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import java.lang.Exception
@@ -23,16 +24,93 @@ class DbManager {
     private lateinit var realm: Realm
 
     fun connect() {
+        if (!checkConnection()){Log.d("DbManager", "Connect_Failed")}
         val config =
-            RealmConfiguration.Builder(setOf(Task::class, User::class)).name("taskplanner_mttwh")
-                .build()
-        realm = Realm.open(config)
-        Log.d("Connect to DB", "Successfully opened realm: ${realm.configuration.name}")
+            RealmConfiguration.Builder(setOf(Task::class, User::class))
+                .name("taskplanner_mttwh").build()
+        try {
+            realm = Realm.open(config)
+            Log.d("Connect to DB", "Successfully opened realm: ${realm.configuration.name}")
+        } catch (e: Exception) {
+            Log.d("EXCEPTION", e.message.toString())
+        }
+        val log = realm.configuration.log
+        Log.d("END OF CONNECT", "****************************************************")
+
     }
 
     fun closeConnection() {
-
+        realm.close()
     }
+
+    suspend fun createUser(user: User): Status {
+        return try {
+            realm.write {
+                this.copyToRealm(user)
+            }
+            Log.d("DbManager", "Create User")
+//            realm.close()
+            Status.ALL_OK
+        } catch (e: Exception) {
+            Status.SERVER_ERROR
+        }
+    }
+
+    fun findUser(email: String): User? {
+        val user = realm.query<User>("email == $0", email).first().find()
+        Log.d("DbManager", "Find User")
+//        realm.close()
+        return user
+    }
+
+    suspend fun createTask(task: Task): Status {
+        return try {
+            realm.write {
+                this.copyToRealm(task)
+            }
+//            realm.close()
+            Status.ALL_OK
+        } catch (e: Exception) {
+            Status.SERVER_ERROR
+        }
+    }
+
+    fun getTasks(user: User): List<Task> {
+        val tasks = realm.query<Task>("userId == $0", user.id).find()
+        Log.d("DbManager", "get tasks")
+//        realm.close()
+        return tasks
+    }
+
+    fun getUserLastId(): Int {     //Todo: определение по последнему элементу БД
+        val lastId = realm.query<User>().sort("_id").first().find()?.id!!
+        Log.d("DbManager", "Get user last id")
+        return lastId
+    }
+
+    fun getTaskLastId(): Int {
+        val lastId = realm.query<Task>().sort("_id").first().find()?.id!!
+        Log.d("DbManager", "Get task last id")
+        return lastId
+    }
+
+        private fun checkConnection(): Boolean {
+        val url = URL("http://testdb.dlgod.mongodb.net")
+        with(url.openConnection() as HttpURLConnection) {
+            url.openConnection() as HttpURLConnection
+            requestMethod = "GET"  // optional default is GET
+
+            Log.d(
+                "LOGIN_MANAGER_CHECK_CON",
+                "\nSent 'GET' request to URL : $url; Response Code : $responseCode"
+            )
+            if (responseCode == 200) return true
+        }
+        return false
+    }
+
+
+
 //    val realmSync by lazy {
 //        App(AppConfiguration.Builder(BuildConfig.RealmAppId).build())
 //    }
@@ -119,19 +197,6 @@ class DbManager {
 //        return Status.CONNECTION_ERROR
 //    }
 //
-//    private fun checkConnection(): Boolean {
-//        val url = URL("http://testdb.dlgod.mongodb.net")
-//        with(url.openConnection() as HttpURLConnection) {
-//            url.openConnection() as HttpURLConnection
-//            requestMethod = "GET"  // optional default is GET
-//
-//            Log.d(
-//                "LOGIN_MANAGER_CHECK_CON",
-//                "\nSent 'GET' request to URL : $url; Response Code : $responseCode"
-//            )
-//            if (responseCode == 200) return true
-//        }
-//        return false
-//    }
+/
 
 }
