@@ -10,17 +10,17 @@ class User() : RealmObject {
     var password: String = ""
     var name: String = ""
 
-//    constructor(
-//        id: Int,
-//        email: String,
-//        password: String,
-//        name: String,
-//    ) : this() {
-//        this.id = id
-//        this.email = email
-//        this.password = password
-//        this.name = name
-//    }
+    constructor(
+        id: Int,
+        email: String,
+        password: String,
+        name: String,
+    ) : this() {
+        this.id = id
+        this.email = email
+        this.password = password
+        this.name = name
+    }
 
 //    constructor(userInfo: Document) : this() {
 //        val bsonReader = BsonDocumentReader(userInfo.toBsonDocument())

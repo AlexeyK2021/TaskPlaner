@@ -9,6 +9,7 @@ import ru.alexeyk2021.taskplanner.LoginManager
 import ru.alexeyk2021.taskplanner.Status
 import ru.alexeyk2021.taskplanner.databinding.ActivityLoginBinding
 
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginManager: LoginManager
@@ -56,8 +57,6 @@ class LoginActivity : AppCompatActivity() {
             }
             startActivity(registerActivity)
         }
-
-        binding.checkButton.setOnClickListener { DbManager.getInstance().connect() }
     }
 
     override fun onResume() {

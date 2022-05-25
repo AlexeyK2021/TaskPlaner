@@ -24,7 +24,6 @@ class DbManager {
     private lateinit var realm: Realm
 
     fun connect() {
-        if (!checkConnection()){Log.d("DbManager", "Connect_Failed")}
         val config =
             RealmConfiguration.Builder(setOf(Task::class, User::class))
                 .name("taskplanner_mttwh").build()
@@ -36,12 +35,8 @@ class DbManager {
         }
         val log = realm.configuration.log
         Log.d("END OF CONNECT", "****************************************************")
-
     }
 
-    fun closeConnection() {
-        realm.close()
-    }
 
     suspend fun createUser(user: User): Status {
         return try {
@@ -56,11 +51,37 @@ class DbManager {
         }
     }
 
+    suspend fun deleteUser(user: User): Status {
+        return try {
+            realm.write {
+                val user = this.query<User>("_id == $0", user.id).first().find()
+                user?.also { delete(it) }
+            }
+            Log.d("DbManager", "Delete User")
+//            realm.close()
+            Status.ALL_OK
+        } catch (e: Exception) {
+            Status.SERVER_ERROR
+        }
+    }
+
     fun findUser(email: String): User? {
         val user = realm.query<User>("email == $0", email).first().find()
         Log.d("DbManager", "Find User")
 //        realm.close()
         return user
+    }
+
+
+    fun getUserLastId(): Int {     //Todo: определение по последнему элементу БД
+        val lastId = realm.query<User>().sort("_id").first().find()?.id!!
+        Log.d("DbManager", "Get user last id")
+        return lastId
+    }
+
+    fun getUsers(): List<User> {
+        val users = realm.query<User>().find()
+        return users
     }
 
     suspend fun createTask(task: Task): Status {
@@ -82,33 +103,41 @@ class DbManager {
         return tasks
     }
 
-    fun getUserLastId(): Int {     //Todo: определение по последнему элементу БД
-        val lastId = realm.query<User>().sort("_id").first().find()?.id!!
-        Log.d("DbManager", "Get user last id")
-        return lastId
-    }
-
     fun getTaskLastId(): Int {
         val lastId = realm.query<Task>().sort("_id").first().find()?.id!!
         Log.d("DbManager", "Get task last id")
         return lastId
     }
 
-        private fun checkConnection(): Boolean {
-        val url = URL("http://testdb.dlgod.mongodb.net")
-        with(url.openConnection() as HttpURLConnection) {
-            url.openConnection() as HttpURLConnection
-            requestMethod = "GET"  // optional default is GET
-
-            Log.d(
-                "LOGIN_MANAGER_CHECK_CON",
-                "\nSent 'GET' request to URL : $url; Response Code : $responseCode"
-            )
-            if (responseCode == 200) return true
+    suspend fun deleteTask(task: Task): Status {
+        return try {
+            realm.write {
+                val task = this.query<User>("_id == $0", task.id).first().find()
+                task?.also { delete(it) }
+            }
+            Log.d("DbManager", "Delete User")
+//            realm.close()
+            Status.ALL_OK
+        } catch (e: Exception) {
+            Status.SERVER_ERROR
         }
-        return false
     }
 
+
+//    fun checkConnection(): Boolean {
+//        val url = URL("http://testdb.dlgod.mongodb.net")
+//        with(url.openConnection() as HttpURLConnection) {
+//            url.openConnection() as HttpURLConnection
+//            requestMethod = "GET"  // optional default is GET
+//
+//            Log.d(
+//                "LOGIN_MANAGER_CHECK_CON",
+//                "\nSent 'GET' request to URL : $url; Response Code : $responseCode"
+//            )
+//            if (responseCode == 200) return true
+//        }
+//        return false
+//    }
 
 
 //    val realmSync by lazy {
@@ -197,6 +226,6 @@ class DbManager {
 //        return Status.CONNECTION_ERROR
 //    }
 //
-/
+//
 
 }
