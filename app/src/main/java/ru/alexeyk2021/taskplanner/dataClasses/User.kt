@@ -9,6 +9,8 @@ class User() : RealmObject {
     var email: String = ""
     var password: String = ""
     var name: String = ""
+    val chiefId: Int = -1
+    var subUsersId: List<User> = mutableListOf()
 
     constructor(
         id: Int,

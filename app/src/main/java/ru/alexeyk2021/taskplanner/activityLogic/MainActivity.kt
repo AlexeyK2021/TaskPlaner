@@ -3,6 +3,9 @@ package ru.alexeyk2021.taskplanner.activityLogic
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ru.alexeyk2021.taskplanner.Adapters.ChooseTaskSortingAdapter
 import ru.alexeyk2021.taskplanner.DebugActivity
 import ru.alexeyk2021.taskplanner.LoginManager
 import ru.alexeyk2021.taskplanner.databinding.ActivityMainBinding
@@ -10,13 +13,17 @@ import ru.alexeyk2021.taskplanner.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var loginManager: LoginManager
-    private val debug = true
+    private val debug = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val sortingTypes: RecyclerView = binding.chooseTaskSorting
+        sortingTypes.layoutManager = LinearLayoutManager(this)
+        sortingTypes.adapter = ChooseTaskSortingAdapter(mutableListOf("TEST1", "TEST2", "TEST3"))
 
         loginManager = LoginManager.getInstance()
 
@@ -27,5 +34,6 @@ class MainActivity : AppCompatActivity() {
             val goToAuthPage = Intent(this, LoginActivity::class.java)
             startActivity(goToAuthPage)
         }
+
     }
 }
