@@ -22,8 +22,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sortingTypes: RecyclerView = binding.chooseTaskSorting
-        sortingTypes.layoutManager = LinearLayoutManager(this)
-        sortingTypes.adapter = ChooseTaskSortingAdapter(mutableListOf("TEST1", "TEST2", "TEST3"))
+        sortingTypes.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        val buttonArray = mutableListOf<String>()
+        for (i in 0..10) {
+            buttonArray.add("TEST$i")
+        }
+        sortingTypes.adapter = ChooseTaskSortingAdapter(buttonArray)
 
         loginManager = LoginManager.getInstance()
 
@@ -31,8 +37,8 @@ class MainActivity : AppCompatActivity() {
             val debugPage = Intent(this, DebugActivity::class.java)
             startActivity(debugPage)
         } else if (!loginManager.isLogged()) {
-            val goToAuthPage = Intent(this, LoginActivity::class.java)
-            startActivity(goToAuthPage)
+//            val goToAuthPage = Intent(this, LoginActivity::class.java)
+//            startActivity(goToAuthPage)
         }
 
     }

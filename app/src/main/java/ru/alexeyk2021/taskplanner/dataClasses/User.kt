@@ -54,6 +54,4 @@ class User() : RealmObject {
     override fun toString(): String {
         return "User(id=$id, email='$email', password='$password', name='$name')"
     }
-
-
 }
