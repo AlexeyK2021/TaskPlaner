@@ -55,6 +55,7 @@ class DbManager {
         return try {
             realm.write {
                 val user = this.query<User>("_id == $0", user.id).first().find()
+                Log.d("Deleting user", "deleted ${user.toString()}")
                 user?.also { delete(it) }
             }
             Log.d("DbManager", "Delete User")
@@ -67,7 +68,7 @@ class DbManager {
 
     fun findUser(email: String): User? {
         val user = realm.query<User>("email == $0", email).first().find()
-        Log.d("DbManager", "Find User")
+        Log.d("DbManager", "Find User; ${user.toString()}")
 //        realm.close()
         return user
     }

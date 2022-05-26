@@ -12,17 +12,17 @@ class User() : RealmObject {
     val chiefId: Int = -1
     var subUsersId: List<User> = mutableListOf()
 
-    constructor(
-        id: Int,
-        email: String,
-        password: String,
-        name: String,
-    ) : this() {
-        this.id = id
-        this.email = email
-        this.password = password
-        this.name = name
-    }
+//    constructor(
+//        id: Int,
+//        email: String,
+//        password: String,
+//        name: String,
+//    ) : this() {
+//        this.id = id
+//        this.email = email
+//        this.password = password
+//        this.name = name
+//    }
 
 //    constructor(userInfo: Document) : this() {
 //        val bsonReader = BsonDocumentReader(userInfo.toBsonDocument())

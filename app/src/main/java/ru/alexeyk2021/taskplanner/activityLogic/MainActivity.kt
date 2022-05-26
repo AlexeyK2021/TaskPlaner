@@ -26,9 +26,7 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         val buttonArray = mutableListOf<String>()
-        for (i in 0..10) {
-            buttonArray.add("TEST$i")
-        }
+
         sortingTypes.adapter = ChooseTaskSortingAdapter(buttonArray)
 
         loginManager = LoginManager.getInstance()

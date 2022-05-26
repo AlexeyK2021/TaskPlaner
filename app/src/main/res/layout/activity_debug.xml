@@ -38,4 +38,24 @@
         android:background="@color/green"
         android:text="Read Data" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="80dp"
+        android:background="@color/green"
+        android:text="Find User" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delete_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="80dp"
+        android:background="@color/green"
+        android:text="Delete User" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -26,7 +26,7 @@ class LoginManager {
         }
     }
 
-    public var currentUser: User? = null
+    var currentUser: User? = null
 
     fun login(email: String, password: String): Status {
         //todo: Вход по логину и зашифрованному паролю; userId получаем из таблицы

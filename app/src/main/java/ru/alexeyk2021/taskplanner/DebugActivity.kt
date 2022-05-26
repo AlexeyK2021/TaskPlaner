@@ -19,22 +19,20 @@ class DebugActivity : AppCompatActivity() {
         val connectButton = binding.connect
         val sendButton = binding.addingTestData
         val readButton = binding.readData
+        val findUser = binding.findUser
+        val deleteUser = binding.deleteUser
         val dbManager = DbManager.getInstance()
 
         connectButton.setOnClickListener { dbManager.connect() }
         sendButton.setOnClickListener {
             runBlocking {
                 launch {
-                    Log.d(
-                        "SendButton", dbManager.createUser(
-                            User(
-                                id = 1,
-                                name = "Alex",
-                                email = "91251243736@mail.ru",
-                                password = "mkmkdmkvmamsmdfmamdfopepf"
-                            )
-                        ).toString()
-                    )
+                    val user = User()
+                    user.id = 1
+                    user.email = "9151243736@mail.ru"
+                    user.password = "kfgnsdsdifjsfsd"
+                    user.name = "Alex"
+                    Log.d("SendButton", dbManager.createUser(user).toString())
                 }
             }
         }
@@ -45,6 +43,16 @@ class DebugActivity : AppCompatActivity() {
                 users += it.toString() + "\n"
             }
             Log.d("Users", users)
+        }
+        findUser.setOnClickListener {
+            dbManager.findUser("91251243736@mail.ru")
+        }
+        deleteUser.setOnClickListener {
+            runBlocking {
+                launch {
+                    dbManager.deleteUser(dbManager.findUser("91251243736@mail.ru")!!)
+                }
+            }
         }
     }
 }
