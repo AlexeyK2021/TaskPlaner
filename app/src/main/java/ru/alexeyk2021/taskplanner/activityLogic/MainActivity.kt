@@ -13,7 +13,7 @@ import ru.alexeyk2021.taskplanner.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var loginManager: LoginManager
-    private val debug = false
+    private val debug = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

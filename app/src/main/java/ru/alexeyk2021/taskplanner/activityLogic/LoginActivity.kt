@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import ru.alexeyk2021.taskplanner.DbManager
 import ru.alexeyk2021.taskplanner.LoginManager
 import ru.alexeyk2021.taskplanner.Status
 import ru.alexeyk2021.taskplanner.databinding.ActivityLoginBinding

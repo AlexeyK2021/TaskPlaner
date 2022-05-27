@@ -1,6 +1,8 @@
 package ru.alexeyk2021.taskplanner
 
 import android.util.Log
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import java.math.BigInteger
 
@@ -31,7 +33,15 @@ class LoginManager {
     fun login(email: String, password: String): Status {
         //todo: Вход по логину и зашифрованному паролю; userId получаем из таблицы
         val dbManager = DbManager.getInstance()
-        dbManager.connect()
+        runBlocking {
+            launch {
+                dbManager.connect()
+            }
+        }
+
+
+
+
 //        val user: User? = dbManager.findUser(email)
 
 //        if (user == null) return Status.NO_USER_IN_DB

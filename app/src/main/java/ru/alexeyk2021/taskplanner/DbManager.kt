@@ -3,7 +3,6 @@ package ru.alexeyk2021.taskplanner
 import android.util.Log
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.query
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import java.lang.Exception

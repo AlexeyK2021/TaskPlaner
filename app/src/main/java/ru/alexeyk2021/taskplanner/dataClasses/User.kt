@@ -4,13 +4,12 @@ import io.realm.RealmObject
 
 //import org.bson.*
 
-class User() : RealmObject {
+class User : RealmObject {
     var id: Int = -1
     var email: String = ""
     var password: String = ""
     var name: String = ""
-    val chiefId: Int = -1
-    var subUsersId: List<User> = mutableListOf()
+    var chiefId: Int = -1
 
 //    constructor(
 //        id: Int,

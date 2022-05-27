@@ -38,7 +38,9 @@ android {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt'
+//    implementation 'org.postgresql:postgresql:42.3.6'
+    implementation files("libs/postgresql-42.3.6.jar")
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1-native-mt'
     implementation 'io.realm.kotlin:library-base:0.11.1'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
