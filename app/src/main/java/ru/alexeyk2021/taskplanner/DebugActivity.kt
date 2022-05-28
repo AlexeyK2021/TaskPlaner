@@ -3,10 +3,9 @@ package ru.alexeyk2021.taskplanner
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import ru.alexeyk2021.taskplanner.DBConnectors.PostgresConnector
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import ru.alexeyk2021.taskplanner.databinding.ActivityDebugBinding
 

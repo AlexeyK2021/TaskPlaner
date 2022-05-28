@@ -1,11 +1,10 @@
-package ru.alexeyk2021.taskplanner
+package ru.alexeyk2021.taskplanner.DBConnectors
 
 import android.util.Log
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.sql.Connection
 import java.sql.DriverManager
-import java.sql.Statement
 
 class PostgresConnector() {
     companion object {

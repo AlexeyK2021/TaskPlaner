@@ -1,13 +1,13 @@
-package ru.alexeyk2021.taskplanner
+package ru.alexeyk2021.taskplanner.DBConnectors
 
 import android.util.Log
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.query
+import ru.alexeyk2021.taskplanner.Status
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import java.lang.Exception
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class DbManager {

@@ -1,8 +1,8 @@
 package ru.alexeyk2021.taskplanner
 
-import android.util.Log
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import ru.alexeyk2021.taskplanner.DBConnectors.DbManager
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import java.math.BigInteger
 
