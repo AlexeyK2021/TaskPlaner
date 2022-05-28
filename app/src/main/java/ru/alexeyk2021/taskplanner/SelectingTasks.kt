@@ -16,9 +16,8 @@ class SelectingTasks() {
     }
 
     var typeTasksToShow: TaskStatus = TaskStatus.NOT_STARTED
-    var allTasks: List<Task> = mutableListOf()
 
-    fun generateList(): List<Task> {
+    fun generateList(allTasks: List<Task>): List<Task> {
         val tasks = mutableListOf<Task>()
         allTasks.forEach {
             if (it.status == typeTasksToShow.ordinal) tasks.add(it)

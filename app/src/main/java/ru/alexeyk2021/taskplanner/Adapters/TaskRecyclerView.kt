@@ -1,14 +1,11 @@
 package ru.alexeyk2021.taskplanner.Adapters
 
-import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexeyk2021.taskplanner.R
 import ru.alexeyk2021.taskplanner.dataClasses.Task
@@ -21,10 +18,6 @@ class TaskViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val taskName: TextView = itemView.findViewById(R.id.task_name)
     val taskAuthor: TextView = itemView.findViewById(R.id.task_author)
     val cardView: CardView = itemView.findViewById(R.id.task_cardview)
-    val doneButton: Button = itemView.findViewById(R.id.task_done)
-    val workingButton: Button = itemView.findViewById(R.id.task_working)
-    val deleteButton: Button = itemView.findViewById(R.id.task_done)
-
 }
 
 class TaskRecyclerView(private val tasks: List<Task>) : RecyclerView.Adapter<TaskViewOrder>() {
@@ -52,10 +45,6 @@ class TaskRecyclerView(private val tasks: List<Task>) : RecyclerView.Adapter<Tas
             }
         )
 
-    }
-
-    private fun addWorkingButton(){
-        
     }
 
     override fun getItemCount(): Int {

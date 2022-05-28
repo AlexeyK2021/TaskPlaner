@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexeyk2021.taskplanner.R
+import ru.alexeyk2021.taskplanner.SelectingTasks
+import ru.alexeyk2021.taskplanner.dataClasses.TaskStatus
 
 
 class SortViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -15,6 +17,7 @@ class SortViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 class ChooseTaskSortingAdapter(private val sortingTypes: List<String>) :
     RecyclerView.Adapter<SortViewOrder>() {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SortViewOrder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.sort_tasks_button_item, parent, false)
@@ -23,8 +26,10 @@ class ChooseTaskSortingAdapter(private val sortingTypes: List<String>) :
 
     override fun onBindViewHolder(holder: SortViewOrder, position: Int) {
         holder.chooseButton.text = sortingTypes[position]
+        holder.chooseButton.setOnClickListener {
+            SelectingTasks.getInstance().typeTasksToShow = TaskStatus.values()[position]
+        }
     }
 
     override fun getItemCount(): Int = sortingTypes.size
-
 }

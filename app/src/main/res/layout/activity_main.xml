@@ -16,10 +16,6 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/sort_tasks_button_item" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -31,10 +27,6 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/sort_tasks_button_item" />
+        tools:listitem="@layout/task_item" />
 
 </LinearLayout>

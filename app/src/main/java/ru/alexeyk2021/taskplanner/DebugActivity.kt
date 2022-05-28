@@ -53,15 +53,7 @@ class DebugActivity : AppCompatActivity() {
                 "email" to "test@test.ru",
                 "name" to "testingUser",
                 "tasks" to mutableListOf(
-                    Task(
-                        userId = 1,
-                        id = 1,
-                        name = "test",
-                        startDate = "today",
-                        endDate = "today",
-                        description = "bla bla bla",
-                        status = 0
-                    )
+                    Task(1, 1, "test", "Alexey","today", "today", "bla bla bla", 0)
                 )
             )
             Firebase.firestore.collection("users").add(user)

@@ -38,7 +38,7 @@
                 android:id="@+id/task_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Read book"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/status" />
@@ -49,48 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Alexey"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/task_name" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/task_author">
-
-                <ImageView
-                    android:id="@+id/task_done"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:contentDescription="Change task to done"
-                    android:src="@drawable/task_done"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
-                    android:id="@+id/task_working"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:contentDescription="Change task to working"
-                    android:src="@drawable/task_working"
-                    app:layout_constraintStart_toEndOf="@id/task_done"
-                    app:layout_constraintTop_toBottomOf="@id/task_author" />
-
-                <ImageView
-                    android:id="@+id/task_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:contentDescription="Delete task"
-                    android:src="@drawable/task_delete"
-                    app:layout_constraintStart_toEndOf="@id/task_working"
-                    app:layout_constraintTop_toBottomOf="@id/task_author" />
-            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
