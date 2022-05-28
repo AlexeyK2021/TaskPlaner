@@ -1,34 +1,35 @@
 package ru.alexeyk2021.taskplanner.dataClasses
 
-import io.realm.RealmObject
 
-
-class Task : RealmObject {
+class Task() {
     var userId: Int = -1
     var id: Int = 0
     var name: String = ""
     var startDate: String = ""
+    var authorName: String = ""
     var endDate: String = ""
     var description: String = ""
     var status: Int = 0
 
-//    constructor(
-//        userId: Int,
-//        id: Int,
-//        name: String,
-//        startDate: String,
-//        endDate: String,
-//        description: String,
-//        status: TaskStatus
-//    ) : this() {
-//        this.userId = userId
-//        this.id = id
-//        this.name = name
-//        this.startDate = startDate
-//        this.endDate = endDate
-//        this.description = description
-//        this.status = status
-//    }
+    constructor(
+        userId: Int,
+        id: Int,
+        name: String,
+        authorName: String,
+        startDate: String,
+        endDate: String,
+        description: String,
+        status: Int
+    ) : this() {
+        this.userId = userId
+        this.id = id
+        this.name = name
+        this.authorName = authorName
+        this.startDate = startDate
+        this.endDate = endDate
+        this.description = description
+        this.status = status
+    }
 
 //    constructor(userInfo: Document) : this() {
 //        val bsonReader = BsonDocumentReader(userInfo.toBsonDocument())

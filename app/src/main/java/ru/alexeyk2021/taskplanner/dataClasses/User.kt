@@ -1,10 +1,8 @@
 package ru.alexeyk2021.taskplanner.dataClasses
 
-import io.realm.RealmObject
-
 //import org.bson.*
 
-class User : RealmObject {
+class User {
     var id: Int = -1
     var email: String = ""
     var password: String = ""

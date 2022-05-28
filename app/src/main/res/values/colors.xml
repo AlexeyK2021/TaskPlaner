@@ -10,4 +10,7 @@
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
     <color name="orange">#FF9800</color>
+    <color name="task_not_started">#5C0909</color>
+    <color name="task_working">#A8851B</color>
+    <color name="task_done">#196814</color>
 </resources>

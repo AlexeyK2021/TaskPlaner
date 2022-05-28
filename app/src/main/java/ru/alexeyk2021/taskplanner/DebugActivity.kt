@@ -1,12 +1,15 @@
 package ru.alexeyk2021.taskplanner
 
+import android.content.ContentValues
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import ru.alexeyk2021.taskplanner.DBConnectors.PostgresConnector
-import ru.alexeyk2021.taskplanner.dataClasses.User
+import android.widget.Toast
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.databinding.ActivityDebugBinding
 
 class DebugActivity : AppCompatActivity() {
@@ -23,46 +26,73 @@ class DebugActivity : AppCompatActivity() {
         val findUser = binding.findUser
         val deleteUser = binding.deleteUser
 //        val dbManager = DbManager.getInstance()
-        val postgresConnector = PostgresConnector.getInstance()
+        val auth = Firebase.auth
+        val db = Firebase.firestore
 
         connectButton.setOnClickListener {
-            runBlocking {
-                launch {
-//                    dbManager.connect()
-                    postgresConnector.connect()
+            auth.signInWithEmailAndPassword(
+                "9151243736", "12345678"
+            )
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(ContentValues.TAG, "signInWithEmail:success")
+                        val user = auth.currentUser
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            this, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
-//            postgresConnector.connect()
         }
         sendButton.setOnClickListener {
-            runBlocking {
-                launch {
-                    val user = User()
-                    user.id = 1
-                    user.email = "9151243736@mail.ru"
-                    user.password = "kfgnsdsdifjsfsd"
-                    user.name = "Alex"
-//                    Log.d("SendButton", dbManager.createUser(user).toString())
+            val user = hashMapOf(
+                "email" to "test@test.ru",
+                "name" to "testingUser",
+                "tasks" to mutableListOf(
+                    Task(
+                        userId = 1,
+                        id = 1,
+                        name = "test",
+                        startDate = "today",
+                        endDate = "today",
+                        description = "bla bla bla",
+                        status = 0
+                    )
+                )
+            )
+            Firebase.firestore.collection("users").add(user)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(
+                        TAG,
+                        "DocumentSnapshot added with ID: ${documentReference.id}"
+                    )
                 }
-            }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
         }
 
         readButton.setOnClickListener {
-            var users = ""
-//            dbManager.getUsers().forEach {
-//                users += it.toString() + "\n"
-//            }
-            Log.d("Users", users)
+            db.collection("users")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
         }
         findUser.setOnClickListener {
 //            dbManager.findUser("91251243736@mail.ru")
         }
         deleteUser.setOnClickListener {
-            runBlocking {
-                launch {
-//                    dbManager.deleteUser(dbManager.findUser("91251243736@mail.ru")!!)
-                }
-            }
+
         }
     }
 }

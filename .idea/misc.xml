@@ -5,22 +5,21 @@
       <map>
         <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/layout/activity_debug.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/layout/sort_tasks_button_item.xml" value="0.25" />
-        <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/layout/task_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/xml/network_security_config.xml" value="0.18697916666666667" />
-        <entry key="..\:/Users/89151/Documents/Prog/Android/TaskPlaner/app/src/main/res/xml/sort_tasks_item.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout-v28/activity_login.xml" value="0.5380208333333333" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.3457161981258367" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.403515625" />
+        <entry key="app/src/main/res/layout/activity_debug.xml" value="0.5375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5380208333333333" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.5380208333333333" />
+        <entry key="app/src/main/res/layout/sort_tasks_button_item.xml" value="0.2613981762917933" />
+        <entry key="app/src/main/res/layout/task_item.xml" value="0.75" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
