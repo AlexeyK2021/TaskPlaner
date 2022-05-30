@@ -42,40 +42,42 @@ class MainActivity : AppCompatActivity() {
         val addTask: FloatingActionButton = binding.addTask
 
         addTask.setOnClickListener {
-            TODO("Make an turn to CreateTask Activity and it too")
+            val createTaskPage = Intent(this, CreateTaskActivity::class.java)
+            startActivity(createTaskPage)
+//            TODO("Make an turn to CreateTask Activity and it too")
         }
 
         val buttonArray = mutableListOf(
-            Resources.getSystem().getString(R.string.task_working),
-            Resources.getSystem().getString(R.string.task_not_started),
-            Resources.getSystem().getString(R.string.task_done)
+            getString(R.string.task_working),
+            getString(R.string.task_not_started),
+            getString(R.string.task_done)
         )
-        sortingTypes.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        sortingTypes.adapter = ChooseTaskSortingAdapter(buttonArray)
+//        sortingTypes.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        sortingTypes.adapter = ChooseTaskSortingAdapter(buttonArray)
 
         tasksList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        Firebase.firestore.collection("tasks").get()
-            .addOnSuccessListener { result ->
-                val tasks = mutableListOf<Task>()
-                for (doc in result) {
-                    tasks.add(Task(doc))
-                }
-                val relevantTasks = SelectingTasks.getInstance().generateList(tasks)
-                tasksList.adapter = TaskRecyclerView(relevantTasks)
-            }.addOnFailureListener { result ->
-                Log.e("ReadFromDB", "Can't read tasks from DB ${result.message}")
-                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show()
-            }
+//        Firebase.firestore.collection("tasks").get()
+//            .addOnSuccessListener { result ->
+//                val tasks = mutableListOf<Task>()
+//                for (doc in result) {
+//                    tasks.add(Task(doc))
+//                }
+//                val relevantTasks = SelectingTasks.getInstance().generateList(tasks)
+//                tasksList.adapter = TaskRecyclerView(relevantTasks)
+//            }.addOnFailureListener { result ->
+//                Log.e("ReadFromDB", "Can't read tasks from DB ${result.message}")
+//                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show()
+//            }
 
     }
 
     override fun onResume() {
         super.onResume()
-        if (Firebase.auth.currentUser != null) {
-            val debugPage = Intent(this, DebugActivity::class.java)
-            startActivity(debugPage)
-        }
+//        if (Firebase.auth.currentUser != null) {
+//            val debugPage = Intent(this, DebugActivity::class.java)
+//            startActivity(debugPage)
+//        }
     }
 }
