@@ -9,6 +9,9 @@ import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.flow.callbackFlow
+import ru.alexeyk2021.taskplanner.activityLogic.MainActivity
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.databinding.ActivityDebugBinding
 
@@ -49,36 +52,21 @@ class DebugActivity : AppCompatActivity() {
                 }
         }
         sendButton.setOnClickListener {
-            val user = hashMapOf(
-                "email" to "test@test.ru",
-                "name" to "testingUser",
-                "tasks" to mutableListOf(
-                    Task(1, 1, "test", "Alexey","today", "today", "bla bla bla", 0)
-                )
+            val task = Task(
+                userId = 1,
+                name = "Test Task",
+                authorName = "Alex",
+                startDate = "Today",
+                endDate = "tomorrow",
             )
-            Firebase.firestore.collection("users").add(user)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(
-                        TAG,
-                        "DocumentSnapshot added with ID: ${documentReference.id}"
-                    )
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
-                }
+//            TaskManager.getInstance().addTask(task.getInfo())
+
         }
 
         readButton.setOnClickListener {
-            db.collection("users")
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        Log.d(TAG, "${document.id} => ${document.data}")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents.", exception)
-                }
+//            TaskManager.getInstance().getTasks()
+            Firebase.firestore.collection("tasks").get().addOnSuccessListener { result ->
+            }
         }
         findUser.setOnClickListener {
 //            dbManager.findUser("91251243736@mail.ru")
@@ -87,4 +75,5 @@ class DebugActivity : AppCompatActivity() {
 
         }
     }
+
 }

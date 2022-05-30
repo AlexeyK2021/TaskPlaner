@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ru.alexeyk2021.taskplanner.dataClasses.Task
+import ru.alexeyk2021.taskplanner.dataClasses.User
 
 import ru.alexeyk2021.taskplanner.databinding.ActivityRegisterBinding
 
@@ -44,12 +45,9 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
-                        val user = hashMapOf(
-                            "email" to emailText.text.toString(),
-                            "name" to usernameText.text.toString(),
-                            "tasks" to mutableListOf<Task>()
-                        )
-                        Firebase.firestore.collection("users").add(user)
+                        val user = User(email = emailText.text.toString(), name = usernameText.text.toString())
+
+                        Firebase.firestore.collection("users").add(user.getInfo())
                             .addOnSuccessListener { documentReference ->
                                 Log.d(
                                     TAG,

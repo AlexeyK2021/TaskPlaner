@@ -1,7 +1,10 @@
 package ru.alexeyk2021.taskplanner.dataClasses
 
+import com.google.firebase.firestore.QueryDocumentSnapshot
+
 
 class Task() {
+
     var userId: Int = -1
     var id: Int = 0
     var name: String = ""
@@ -13,23 +16,46 @@ class Task() {
 
     constructor(
         userId: Int,
-        id: Int,
         name: String,
         authorName: String,
         startDate: String,
         endDate: String,
-        description: String,
-        status: Int
+        description: String = "",
+        status: Int = TaskStatus.NOT_STARTED.ordinal
     ) : this() {
         this.userId = userId
-        this.id = id
         this.name = name
         this.authorName = authorName
         this.startDate = startDate
         this.endDate = endDate
         this.description = description
         this.status = status
+
+//        Firebase.firestore.collection("tasks").get().addOnCompleteListener {
+//            id = it.result.documents.size
+//        }
     }
+
+    constructor(data: QueryDocumentSnapshot) : this() {
+        this.userId = data["userId"] as Int
+        this.name = data["name"] as String
+        this.authorName = data["authorName"] as String
+        this.startDate = data["startDate"] as String
+        this.endDate = data["endDate"] as String
+        this.description = data["description"] as String
+        this.status = data["status"] as Int
+    }
+
+    fun getInfo(): HashMap<String, Any> = hashMapOf(
+        "userId" to userId,
+        "name" to name,
+        "authorName" to authorName,
+        "startDate" to startDate,
+        "endDate" to endDate,
+        "description" to description,
+        "status" to status
+    )
+
 
 //    constructor(userInfo: Document) : this() {
 //        val bsonReader = BsonDocumentReader(userInfo.toBsonDocument())
@@ -76,7 +102,7 @@ class Task() {
 }
 
 enum class TaskStatus {
-    NOT_STARTED,
     WORKING,
+    NOT_STARTED,
     DONE
 }

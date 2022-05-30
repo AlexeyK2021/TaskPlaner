@@ -17,4 +17,11 @@
     <string name="enter_name">Enter name</string>
     <string name="exit">Exit</string>
     <string name="back">Go back</string>
+    <string name="add_task">Add task</string>
+
+    <!--Task statuses-->
+    <string name="task_working">Working</string>
+    <string name="task_not_started">Not started</string>
+    <string name="task_done">Done</string>
+
 </resources>

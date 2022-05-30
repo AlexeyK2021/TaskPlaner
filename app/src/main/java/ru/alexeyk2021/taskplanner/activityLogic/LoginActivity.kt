@@ -39,7 +39,6 @@ class LoginActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
-                            val user = auth.currentUser
                             finish()
                         } else {
                             // If sign in fails, display a message to the user.
@@ -75,12 +74,12 @@ class LoginActivity : AppCompatActivity() {
         if (auth.currentUser != null) finish()
     }
 
-    private fun makeMessage(text: String) {
-        Toast.makeText(
-            this,
-            text,
-            Toast.LENGTH_LONG
-        ).show()
-        Log.d("LOGIN_ACTIVITY", text)
-    }
+//    private fun makeMessage(text: String) {
+//        Toast.makeText(
+//            this,
+//            text,
+//            Toast.LENGTH_LONG
+//        ).show()
+//        Log.d("LOGIN_ACTIVITY", text)
+//    }
 }

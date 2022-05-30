@@ -1,6 +1,6 @@
 package ru.alexeyk2021.taskplanner.Adapters
 
-import android.content.res.Resources
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.alexeyk2021.taskplanner.R
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.TaskStatus
+
 
 
 class TaskViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,20 +36,29 @@ class TaskRecyclerView(private val tasks: List<Task>) : RecyclerView.Adapter<Tas
         holder.taskStatus.text = TaskStatus.values()[task.status].toString()
         holder.taskName.text = task.name
         holder.taskAuthor.text = task.authorName
-        holder.cardView.setCardBackgroundColor(
-            when (task.status) {
-                TaskStatus.NOT_STARTED.ordinal -> Resources.getSystem()
-                    .getColor(R.color.task_not_started)
-                TaskStatus.WORKING.ordinal -> Resources.getSystem().getColor(R.color.task_working)
-                TaskStatus.DONE.ordinal -> Resources.getSystem().getColor(R.color.task_done)
-                else -> Resources.getSystem().getColor(R.color.black)
-            }
-        )
+//        holder.cardView.setCardBackgroundColor(
+//            when (task.status) {
+//                TaskStatus.NOT_STARTED.ordinal -> R.color.task_not_started
+//                TaskStatus.WORKING.ordinal -> Resources.getSystem().getColor(R.color.task_working)
+//                TaskStatus.DONE.ordinal -> Resources.getSystem().getColor(R.color.task_done)
+//                else -> Resources.getSystem().getColor(R.color.black)
+//            }
+//        )
 
     }
 
     override fun getItemCount(): Int {
         return tasks.size
     }
+
+//    @ColorInt
+//    fun Context.getColorFromAttr(
+//        @AttrRes attrColor: Int,
+//        typedValue: TypedValue = TypedValue(),
+//        resolveRefs: Boolean = true
+//    ): Int {
+//        theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+//        return typedValue.data
+//    }
 
 }

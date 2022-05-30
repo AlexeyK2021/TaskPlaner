@@ -15,7 +15,7 @@ class SelectingTasks() {
         }
     }
 
-    var typeTasksToShow: TaskStatus = TaskStatus.NOT_STARTED
+    var typeTasksToShow: TaskStatus = TaskStatus.WORKING
 
     fun generateList(allTasks: List<Task>): List<Task> {
         val tasks = mutableListOf<Task>()

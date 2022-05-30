@@ -1,18 +1,23 @@
 package ru.alexeyk2021.taskplanner.activityLogic
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ru.alexeyk2021.taskplanner.Adapters.ChooseTaskSortingAdapter
 import ru.alexeyk2021.taskplanner.Adapters.TaskRecyclerView
 import ru.alexeyk2021.taskplanner.DebugActivity
+import ru.alexeyk2021.taskplanner.R
+import ru.alexeyk2021.taskplanner.SelectingTasks
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.databinding.ActivityMainBinding
 
@@ -23,33 +28,54 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_TaskPlanner)
         setContentView(binding.root)
-
-        val sortingTypes: RecyclerView = binding.chooseTaskSorting
-        val tasksList: RecyclerView = binding.taskRecyclerView
-
-        val buttonArray = mutableListOf<String>()
-        sortingTypes.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        sortingTypes.adapter = ChooseTaskSortingAdapter(buttonArray)
-
-        val tasks =
-            mutableListOf<Task>(
-                Task(1, 1, "TestName", "Alexey", "Today", "Tomorrow", "No", 0),
-                Task(1, 1, "TestName", "Alexey", "Today", "Tomorrow", "No", 1),
-                Task(1, 1, "TestName", "Alexey", "Today", "Tomorrow", "No", 2)
-            )
-        tasksList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        tasksList.adapter = TaskRecyclerView(tasks)
-
 
 
         if (Firebase.auth.currentUser == null) {
             val goToAuthPage = Intent(this, LoginActivity::class.java)
             startActivity(goToAuthPage)
         }
-        val debugPage = Intent(this, DebugActivity::class.java)
-        startActivity(debugPage)
 
+        val sortingTypes: RecyclerView = binding.chooseTaskSorting
+        val tasksList: RecyclerView = binding.taskRecyclerView
+        val addTask: FloatingActionButton = binding.addTask
+
+        addTask.setOnClickListener {
+            TODO("Make an turn to CreateTask Activity and it too")
+        }
+
+        val buttonArray = mutableListOf(
+            Resources.getSystem().getString(R.string.task_working),
+            Resources.getSystem().getString(R.string.task_not_started),
+            Resources.getSystem().getString(R.string.task_done)
+        )
+        sortingTypes.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        sortingTypes.adapter = ChooseTaskSortingAdapter(buttonArray)
+
+        tasksList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        Firebase.firestore.collection("tasks").get()
+            .addOnSuccessListener { result ->
+                val tasks = mutableListOf<Task>()
+                for (doc in result) {
+                    tasks.add(Task(doc))
+                }
+                val relevantTasks = SelectingTasks.getInstance().generateList(tasks)
+                tasksList.adapter = TaskRecyclerView(relevantTasks)
+            }.addOnFailureListener { result ->
+                Log.e("ReadFromDB", "Can't read tasks from DB ${result.message}")
+                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show()
+            }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (Firebase.auth.currentUser != null) {
+            val debugPage = Intent(this, DebugActivity::class.java)
+            startActivity(debugPage)
+        }
     }
 }
