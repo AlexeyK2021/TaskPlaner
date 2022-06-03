@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 //                    tasks.add(Task(doc))
 //                }
 //                val relevantTasks = SelectingTasks.getInstance().generateList(tasks)
-//                tasksList.adapter = TaskRecyclerView(relevantTasks)
+//                tasksList.adapter = TaskRecyclerView(relevantTasks,)
 //            }.addOnFailureListener { result ->
 //                Log.e("ReadFromDB", "Can't read tasks from DB ${result.message}")
 //                Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show()

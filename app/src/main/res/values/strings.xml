@@ -23,5 +23,7 @@
     <string name="task_working">Working</string>
     <string name="task_not_started">Not started</string>
     <string name="task_done">Done</string>
+    <string name="add">Add</string>
+    <string name="finish_adding">Finish adding</string>
 
 </resources>

@@ -1,27 +1,25 @@
 package ru.alexeyk2021.taskplanner.dataClasses
 
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 //import org.bson.*
 
 class User() {
-    var id: Int = -1
     var email: String = ""
-    var password: String = ""
     var name: String = ""
-    var chiefId: Int = -1
+    var chiefId: String = ""
     var slavesId: List<User> = mutableListOf()
     var tasksId: List<Task> = mutableListOf()
 
     constructor(
         email: String,
         name: String,
-        chiefId: Int = -1,
+        chiefId: String = "",
         tasksId: List<Task> = mutableListOf(),
         slavesId: List<User> = mutableListOf()
     ) : this() {
-        this.id = Firebase.firestore.collection("users").orderBy("id").get().toString().toInt()
         this.email = email
         this.name = name
         this.chiefId = chiefId
@@ -34,10 +32,21 @@ class User() {
             "email" to email,
             "name" to name,
             "tasks" to tasksId,
-            "id" to id,
             "chiefId" to -1,
             "slaves" to slavesId
         )
+    }
+
+    constructor(data: QueryDocumentSnapshot) : this() {
+        this.email = data["email"] as String
+        this.name = data["name"] as String
+        this.chiefId = data["chiefId"] as String
+        this.slavesId = data["slavesId"] as List<User>
+        this.tasksId = data["tasksId"] as List<Task>
+    }
+
+    override fun toString(): String {
+        return "User(email='$email', name='$name', chiefId=$chiefId, slavesId=$slavesId, tasksId=$tasksId)"
     }
 
 //    constructor(userInfo: Document) : this() {
@@ -67,7 +76,5 @@ class User() {
 //        return doc
 //    }
 
-    override fun toString(): String {
-        return "User(id=$id, email='$email', password='$password', name='$name')"
-    }
+
 }

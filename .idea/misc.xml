@@ -14,7 +14,7 @@
         <entry key="app/src/main/res/layout/activity_create_task.xml" value="0.5380208333333333" />
         <entry key="app/src/main/res/layout/activity_debug.xml" value="0.5375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5380208333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.5380208333333333" />
         <entry key="app/src/main/res/layout/sort_tasks_button_item.xml" value="0.2613981762917933" />
         <entry key="app/src/main/res/layout/task_item.xml" value="0.75" />

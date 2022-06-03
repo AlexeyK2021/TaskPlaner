@@ -4,28 +4,23 @@ import com.google.firebase.firestore.QueryDocumentSnapshot
 
 
 class Task() {
-
-    var userId: Int = -1
-    var id: Int = 0
+    var userEmail: String = ""
     var name: String = ""
     var startDate: String = ""
-    var authorName: String = ""
     var endDate: String = ""
     var description: String = ""
     var status: Int = 0
 
     constructor(
-        userId: Int,
+        userEmail: String,
         name: String,
-        authorName: String,
         startDate: String,
         endDate: String,
         description: String = "",
         status: Int = TaskStatus.NOT_STARTED.ordinal
     ) : this() {
-        this.userId = userId
+        this.userEmail = userEmail
         this.name = name
-        this.authorName = authorName
         this.startDate = startDate
         this.endDate = endDate
         this.description = description
@@ -37,9 +32,8 @@ class Task() {
     }
 
     constructor(data: QueryDocumentSnapshot) : this() {
-        this.userId = data["userId"] as Int
+        this.userEmail = data["userId"] as String
         this.name = data["name"] as String
-        this.authorName = data["authorName"] as String
         this.startDate = data["startDate"] as String
         this.endDate = data["endDate"] as String
         this.description = data["description"] as String
@@ -47,9 +41,8 @@ class Task() {
     }
 
     fun getInfo(): HashMap<String, Any> = hashMapOf(
-        "userId" to userId,
+        "userEmail" to userEmail,
         "name" to name,
-        "authorName" to authorName,
         "startDate" to startDate,
         "endDate" to endDate,
         "description" to description,
@@ -97,7 +90,7 @@ class Task() {
 //    }
 
     override fun toString(): String {
-        return "Task(userId=$userId, id=$id, name='$name', startDate='$startDate', endDate='$endDate', description='$description', status=$status)"
+        return "Task(userEmail=$userEmail, name='$name', startDate='$startDate', endDate='$endDate', description='$description', status=$status)"
     }
 }
 
