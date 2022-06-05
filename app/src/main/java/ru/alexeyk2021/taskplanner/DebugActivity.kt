@@ -51,17 +51,18 @@ class DebugActivity : AppCompatActivity() {
                     }
                 }
         }
-        sendButton.setOnClickListener {
-            val task = Task(
-                userId = 1,
-                name = "Test Task",
-                authorName = "Alex",
-                startDate = "Today",
-                endDate = "tomorrow",
-            )
-//            TaskManager.getInstance().addTask(task.getInfo())
-
-        }
+//        sendButton.setOnClickListener {
+//            val task = Task(
+//                userEmail = ,
+//                userId = 1,
+//                name = "Test Task",
+//                authorName = "Alex",
+//                startDate = "Today",
+//                endDate = "tomorrow",
+//            )
+////            TaskManager.getInstance().addTask(task.getInfo())
+//
+//        }
 
         readButton.setOnClickListener {
 //            TaskManager.getInstance().getTasks()

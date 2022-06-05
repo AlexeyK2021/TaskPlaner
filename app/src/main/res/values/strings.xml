@@ -25,5 +25,8 @@
     <string name="task_done">Done</string>
     <string name="add">Add</string>
     <string name="finish_adding">Finish adding</string>
+    <string name="task_name">Task name</string>
+    <string name="task_description">Task description</string>
+    <string name="users_for_the_task">Users for the task</string>
 
 </resources>

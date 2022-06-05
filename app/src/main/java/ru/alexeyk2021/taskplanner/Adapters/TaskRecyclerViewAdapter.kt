@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import ru.alexeyk2021.taskplanner.R
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.TaskStatus
@@ -30,12 +32,20 @@ class TaskRecyclerView(private val tasks: List<Task>) : RecyclerView.Adapter<Tas
 
     override fun onBindViewHolder(holder: TaskViewOrder, position: Int) {
         val task = tasks[position]
+        Firebase.firestore.collection("users").whereEqualTo("email", task.userEmail).get().addOnSuccessListener {
+            val text = task.startDate + ":" + task.endDate
+            holder.dateRange.text = text
+            holder.taskStatus.text = TaskStatus.values()[task.status].toString()
+            holder.taskName.text = task.name
+            holder.taskAuthor.text = it.documents[0].get("email") as String
+        }
 
-        val text = task.startDate + ":" + task.endDate
-        holder.dateRange.text = text
-        holder.taskStatus.text = TaskStatus.values()[task.status].toString()
-        holder.taskName.text = task.name
-        holder.taskAuthor.text = task.authorName
+//        val text = task.startDate + ":" + task.endDate
+//        holder.dateRange.text = text
+//        holder.taskStatus.text = TaskStatus.values()[task.status].toString()
+//        holder.taskName.text = task.name
+//        holder.taskAuthor.text = task.
+
 //        holder.cardView.setCardBackgroundColor(
 //            when (task.status) {
 //                TaskStatus.NOT_STARTED.ordinal -> R.color.task_not_started

@@ -45,7 +45,10 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success")
-                        val user = User(email = emailText.text.toString(), name = usernameText.text.toString())
+                        val user = User(
+                            email = emailText.text.toString(),
+                            name = usernameText.text.toString()
+                        )
 
                         Firebase.firestore.collection("users").add(user.getInfo())
                             .addOnSuccessListener { documentReference ->
@@ -65,8 +68,8 @@ class RegisterActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                    finish()
                 }
-            finish()
         }
         goBackButton.setOnClickListener {
             finish()

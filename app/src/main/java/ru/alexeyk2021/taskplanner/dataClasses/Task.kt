@@ -31,13 +31,13 @@ class Task() {
 //        }
     }
 
-    constructor(data: QueryDocumentSnapshot) : this() {
+    constructor(data: HashMap<String, String>) : this() {
         this.userEmail = data["userId"] as String
         this.name = data["name"] as String
         this.startDate = data["startDate"] as String
         this.endDate = data["endDate"] as String
         this.description = data["description"] as String
-        this.status = data["status"] as Int
+        this.status = data["status"]!!.toInt()
     }
 
     fun getInfo(): HashMap<String, Any> = hashMapOf(

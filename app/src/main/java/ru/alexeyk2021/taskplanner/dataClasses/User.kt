@@ -10,15 +10,15 @@ class User() {
     var email: String = ""
     var name: String = ""
     var chiefId: String = ""
-    var slavesId: List<User> = mutableListOf()
-    var tasksId: List<Task> = mutableListOf()
+    var slavesId: List<String> = mutableListOf()
+    var tasksId: List<String> = mutableListOf()
 
     constructor(
         email: String,
         name: String,
         chiefId: String = "",
-        tasksId: List<Task> = mutableListOf(),
-        slavesId: List<User> = mutableListOf()
+        tasksId: List<String> = mutableListOf(),
+        slavesId: List<String> = mutableListOf()
     ) : this() {
         this.email = email
         this.name = name
@@ -32,17 +32,18 @@ class User() {
             "email" to email,
             "name" to name,
             "tasks" to tasksId,
-            "chiefId" to -1,
+            "chiefId" to chiefId,
             "slaves" to slavesId
         )
     }
 
-    constructor(data: QueryDocumentSnapshot) : this() {
+    constructor(data: MutableMap<String, Any>) : this() {
         this.email = data["email"] as String
         this.name = data["name"] as String
         this.chiefId = data["chiefId"] as String
-        this.slavesId = data["slavesId"] as List<User>
-        this.tasksId = data["tasksId"] as List<Task>
+
+        this.slavesId = (data["slavesId"] as? List<String>)!! // I don't know how do it. Thinking hmmm
+        this.tasksId = (data["tasksId"] as? List<String>)!!
     }
 
     override fun toString(): String {
