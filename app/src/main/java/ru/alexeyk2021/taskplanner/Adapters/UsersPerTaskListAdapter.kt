@@ -9,13 +9,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexeyk2021.taskplanner.R
 import ru.alexeyk2021.taskplanner.dataClasses.Task
+import ru.alexeyk2021.taskplanner.dataClasses.User
 
 class UsersViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val userName: AppCompatTextView = itemView.findViewById(R.id.user_name)
     val userEmail: AppCompatTextView = itemView.findViewById(R.id.user_email)
 }
 
-class UsersPerTaskListAdapter(private val users: Map<String, String>) :
+class UsersPerTaskListAdapter(private val users: List<User>) :
     RecyclerView.Adapter<UsersViewOrder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewOrder {
@@ -25,11 +26,8 @@ class UsersPerTaskListAdapter(private val users: Map<String, String>) :
     }
 
     override fun onBindViewHolder(holder: UsersViewOrder, position: Int) {
-        val user = users.keys.toList()[position]
-        val userEmail = users[user]
-
-        holder.userName.text = user
-        holder.userEmail.text = userEmail
+        holder.userName.text = users[position].name
+        holder.userEmail.text = users[position].email
     }
 
     override fun getItemCount(): Int = users.size

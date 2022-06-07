@@ -10,15 +10,15 @@ class User() {
     var email: String = ""
     var name: String = ""
     var chiefId: String = ""
-    var slavesId: List<String> = mutableListOf()
-    var tasksId: List<String> = mutableListOf()
+    var slavesId: MutableList<String> = mutableListOf()
+    var tasksId: MutableList<String> = mutableListOf()
 
     constructor(
         email: String,
         name: String,
         chiefId: String = "",
-        tasksId: List<String> = mutableListOf(),
-        slavesId: List<String> = mutableListOf()
+        tasksId: MutableList<String> = mutableListOf(),
+        slavesId: MutableList<String> = mutableListOf()
     ) : this() {
         this.email = email
         this.name = name
@@ -42,8 +42,9 @@ class User() {
         this.name = data["name"] as String
         this.chiefId = data["chiefId"] as String
 
-        this.slavesId = (data["slavesId"] as? List<String>)!! // I don't know how do it. Thinking hmmm
-        this.tasksId = (data["tasksId"] as? List<String>)!!
+        this.slavesId =
+            (data["slavesId"] as? MutableList<String>)!! // I don't know how do it. Thinking hmmm
+        this.tasksId = (data["tasksId"] as? MutableList<String>)!!
     }
 
     override fun toString(): String {

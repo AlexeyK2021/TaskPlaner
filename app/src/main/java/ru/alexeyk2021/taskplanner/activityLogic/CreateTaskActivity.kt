@@ -1,25 +1,21 @@
 package ru.alexeyk2021.taskplanner.activityLogic
 
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
 import ru.alexeyk2021.taskplanner.Adapters.UsersPerTaskListAdapter
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import ru.alexeyk2021.taskplanner.databinding.ActivityCreateTaskBinding
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
 
 class CreateTaskActivity : AppCompatActivity() {
@@ -45,12 +41,13 @@ class CreateTaskActivity : AppCompatActivity() {
         val save = binding.save
         val usersPerTaskList = binding.usersPerTask
 
-        val users = mutableMapOf<String, String>()
+        val users = mutableListOf<User>()
         var cachedUsersData = mutableListOf<DocumentSnapshot>()
+        val adapter = UsersPerTaskListAdapter(users)
 
         usersPerTaskList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        usersPerTaskList.adapter = UsersPerTaskListAdapter(users)
+        usersPerTaskList.adapter = adapter
 
         Firebase.firestore.collection("users").get().addOnSuccessListener {
             Log.d(TAG, "Caching user data")
@@ -58,6 +55,11 @@ class CreateTaskActivity : AppCompatActivity() {
         }.addOnFailureListener {
             Log.d(TAG, "Caching failed: ${it.message.toString()}")
         }
+
+        val todayDate = "${Calendar.DAY_OF_MONTH}.${Calendar.MONTH}.${Calendar.MONTH}"
+        val tomorrowDate = "${Calendar.DAY_OF_MONTH + 1}.${Calendar.MONTH}.${Calendar.MONTH}"
+        startDate.text = todayDate
+        endDate.text = tomorrowDate
 
         startDate.setOnClickListener {
             val year = dateAndTime.get(Calendar.YEAR)
@@ -97,23 +99,29 @@ class CreateTaskActivity : AppCompatActivity() {
             )
             Firebase.firestore.collection("tasks").add(task.getInfo()).addOnSuccessListener {
                 Log.d(TAG, "Created Task; Result: ${it.id}")
+                for (user in users) {
+//                TODO("Синхронизация задачи с пользователями")
+                    user.tasksId.add(it.id)
+                    Firebase.firestore.collection("users").whereEqualTo("email", user.email).get()
+                        .addOnSuccessListener { founded_user ->
+                            founded_user.documents[0].data?.set("tasks", user.tasksId)
+                        }
+                }
                 finish()
             }.addOnFailureListener {
                 Log.d("Failure", it.message.toString())
             }
-            for ((key, value) in users) {
-//                TODO("Синхронизация задачи с пользователями")
-            }
-//
         }
         addUser.setOnClickListener {
             val userEmail = userFinder.text.toString()
             Log.d("User To Add", "Data: $userEmail")
             if (cachedUsersData.find { it.data?.get("email") == userEmail } != null) {
-                users[cachedUsersData.find { it.data?.get("email") == userEmail }.toString()] =
-                    userEmail
+                val foundUser =
+                    User(cachedUsersData.find { it.data?.get("email") == userEmail }!!.data!!)
+                users.add(foundUser)
             }
             userFinder.text = Editable.Factory.getInstance().newEditable("")
+            adapter.notifyItemInserted(0)
         }
     }
 
