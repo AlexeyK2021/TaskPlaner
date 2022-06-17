@@ -14,7 +14,10 @@ class SortViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val chooseButton: Button = itemView.findViewById(R.id.button)
 }
 
-class ChooseTaskSortingAdapter(private val sortingTypes: List<String>) :
+class ChooseTaskSortingAdapter(
+    private val sortingTypes: List<String>,
+    private val sortingType: SelectingTasks
+) :
     RecyclerView.Adapter<SortViewOrder>() {
 
 
@@ -27,7 +30,7 @@ class ChooseTaskSortingAdapter(private val sortingTypes: List<String>) :
     override fun onBindViewHolder(holder: SortViewOrder, position: Int) {
         holder.chooseButton.text = sortingTypes[position]
         holder.chooseButton.setOnClickListener {
-            SelectingTasks.getInstance().typeTasksToShow = TaskStatus.values()[position]
+            sortingType.typeTasksToShow = TaskStatus.values()[position]
         }
     }
 

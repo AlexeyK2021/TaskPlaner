@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activityLogic.CreateTaskActivity">
+    tools:context=".activityLogic.EditTaskActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/task_name"
@@ -45,11 +45,19 @@
         android:id="@+id/startDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_name" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/change_task_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@id/endDate"
+        app:layout_constraintStart_toEndOf="@id/startDate"
+        app:layout_constraintTop_toBottomOf="@id/task_name" />
 
     <TextView
         android:id="@+id/endDate"
@@ -57,7 +65,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
@@ -121,5 +128,6 @@
         android:src="@drawable/task_adding_done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package ru.alexeyk2021.taskplanner.Adapters
 
 
+import android.content.Intent
+import android.provider.Settings.System.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ru.alexeyk2021.taskplanner.R
+import ru.alexeyk2021.taskplanner.activityLogic.EditTaskActivity
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.TaskStatus
-
 
 
 class TaskViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,25 +28,30 @@ class TaskViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 class TaskRecyclerView(private val tasks: List<Task>) : RecyclerView.Adapter<TaskViewOrder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewOrder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.sort_tasks_button_item, parent, false)
+            .inflate(R.layout.task_item, parent, false)
         return TaskViewOrder(itemView)
     }
 
     override fun onBindViewHolder(holder: TaskViewOrder, position: Int) {
         val task = tasks[position]
-        Firebase.firestore.collection("users").whereEqualTo("email", task.userEmail).get().addOnSuccessListener {
-            val text = task.startDate + ":" + task.endDate
-            holder.dateRange.text = text
-            holder.taskStatus.text = TaskStatus.values()[task.status].toString()
-            holder.taskName.text = task.name
-            holder.taskAuthor.text = it.documents[0].get("email") as String
+        holder.cardView.setOnClickListener {
+            val propPage = Intent(it.context, EditTaskActivity::class.java)
+            propPage.putExtra("TASK", task.getInfo())
+            it.context.startActivity(propPage)
         }
-
-//        val text = task.startDate + ":" + task.endDate
-//        holder.dateRange.text = text
-//        holder.taskStatus.text = TaskStatus.values()[task.status].toString()
-//        holder.taskName.text = task.name
-//        holder.taskAuthor.text = task.
+        Firebase.firestore.collection("users").whereEqualTo("email", task.userEmail).get()
+            .addOnSuccessListener {
+                val text = task.startDate + ":" + task.endDate
+                holder.dateRange.text = text
+                holder.taskStatus.text = when (task.status) {
+                    TaskStatus.NOT_STARTED.ordinal -> holder.itemView.context.getString(R.string.task_not_started)
+                    TaskStatus.WORKING.ordinal -> holder.itemView.context.getString(R.string.task_working)
+                    else -> holder.itemView.context.getString(R.string.task_done)
+                }
+                holder.taskName.text = task.name
+                holder.taskAuthor.text = it.documents[0].get("email") as String
+            }
+    }
 
 //        holder.cardView.setCardBackgroundColor(
 //            when (task.status) {
@@ -55,7 +62,6 @@ class TaskRecyclerView(private val tasks: List<Task>) : RecyclerView.Adapter<Tas
 //            }
 //        )
 
-    }
 
     override fun getItemCount(): Int {
         return tasks.size

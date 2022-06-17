@@ -49,15 +49,21 @@ class CreateTaskActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         usersPerTaskList.adapter = adapter
 
-        Firebase.firestore.collection("users").get().addOnSuccessListener {
+        Firebase.firestore.collection("users").get().addOnSuccessListener { result ->
             Log.d(TAG, "Caching user data")
-            cachedUsersData = it.documents
+            cachedUsersData = result.documents
+//            val foundUser =
+//                User(cachedUsersData.find { it.data?.get("email") == Firebase.auth.currentUser?.email }!!.data!!)
+//            users.add(foundUser)
         }.addOnFailureListener {
             Log.d(TAG, "Caching failed: ${it.message.toString()}")
         }
 
-        val todayDate = "${Calendar.DAY_OF_MONTH}.${Calendar.MONTH}.${Calendar.MONTH}"
-        val tomorrowDate = "${Calendar.DAY_OF_MONTH + 1}.${Calendar.MONTH}.${Calendar.MONTH}"
+        val cal = Calendar.getInstance()
+        val todayDate =
+            "${cal.get(Calendar.DAY_OF_MONTH)}.${cal.get(Calendar.MONTH)}.${cal.get(Calendar.YEAR)}"
+        val tomorrowDate =
+            "${cal.get(Calendar.DAY_OF_MONTH) + 1}.${cal.get(Calendar.MONTH)}.${cal.get(Calendar.YEAR)}"
         startDate.text = todayDate
         endDate.text = tomorrowDate
 
@@ -67,8 +73,7 @@ class CreateTaskActivity : AppCompatActivity() {
             val day = dateAndTime.get(Calendar.DAY_OF_MONTH)
 
             val dpd = DatePickerDialog(this, { view, year, monthOfYear, dayOfMonth ->
-                val text =
-                    "$dayOfMonth.$monthOfYear.$year"
+                val text = "$dayOfMonth.$monthOfYear.$year"
                 startDate.text = text
             }, year, month, day)
             dpd.show()
@@ -89,24 +94,30 @@ class CreateTaskActivity : AppCompatActivity() {
 
         save.setOnClickListener {
             val userEmail = Firebase.auth.currentUser?.email!!.toString()
+            val usersEmails = mutableListOf<String>()
+            usersEmails.add(userEmail)
+            users.forEach {
+                usersEmails.add(it.email)
+            }
             val task = Task(
                 userEmail = userEmail,
                 name = taskName.text.toString(),
                 startDate = startDate.text.toString(),
                 endDate = endDate.text.toString(),
                 description = taskDescription.text.toString(),
-                status = 0
+                status = 1,
+                usersEmails = usersEmails
             )
             Firebase.firestore.collection("tasks").add(task.getInfo()).addOnSuccessListener {
                 Log.d(TAG, "Created Task; Result: ${it.id}")
-                for (user in users) {
-//                TODO("Синхронизация задачи с пользователями")
-                    user.tasksId.add(it.id)
-                    Firebase.firestore.collection("users").whereEqualTo("email", user.email).get()
-                        .addOnSuccessListener { founded_user ->
-                            founded_user.documents[0].data?.set("tasks", user.tasksId)
-                        }
-                }
+//                for (user in users) {
+////                TODO("Синхронизация задачи с пользователями")
+//                    user.tasksId.add(it.id)
+//                    Firebase.firestore.collection("users").whereEqualTo("email", user.email).get()
+//                        .addOnSuccessListener { founded_user ->
+//                            founded_user.documents[0].data?.set("tasks", user.tasksId)
+//                        }
+//                }
                 finish()
             }.addOnFailureListener {
                 Log.d("Failure", it.message.toString())
@@ -114,6 +125,7 @@ class CreateTaskActivity : AppCompatActivity() {
         }
         addUser.setOnClickListener {
             val userEmail = userFinder.text.toString()
+
             Log.d("User To Add", "Data: $userEmail")
             if (cachedUsersData.find { it.data?.get("email") == userEmail } != null) {
                 val foundUser =

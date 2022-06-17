@@ -1,18 +1,13 @@
 package ru.alexeyk2021.taskplanner
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.awaitCancellation
-import kotlinx.coroutines.flow.callbackFlow
-import ru.alexeyk2021.taskplanner.activityLogic.MainActivity
-import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.databinding.ActivityDebugBinding
 
 class DebugActivity : AppCompatActivity() {

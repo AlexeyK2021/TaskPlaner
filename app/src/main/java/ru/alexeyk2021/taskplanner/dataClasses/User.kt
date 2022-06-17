@@ -1,17 +1,13 @@
 package ru.alexeyk2021.taskplanner.dataClasses
 
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-
 //import org.bson.*
 
 class User() {
     var email: String = ""
     var name: String = ""
     var chiefId: String = ""
-    var slavesId: MutableList<String> = mutableListOf()
-    var tasksId: MutableList<String> = mutableListOf()
+//    var slavesId: MutableList<String> = mutableListOf()
+//    var tasksId: MutableList<String> = mutableListOf()
 
     constructor(
         email: String,
@@ -23,17 +19,17 @@ class User() {
         this.email = email
         this.name = name
         this.chiefId = chiefId
-        this.tasksId = tasksId
-        this.slavesId = slavesId
+//        this.tasksId = tasksId
+//        this.slavesId = slavesId
     }
 
     fun getInfo(): HashMap<String, Any> {
         return hashMapOf(
             "email" to email,
             "name" to name,
-            "tasks" to tasksId,
+//            "tasks" to tasksId,
             "chiefId" to chiefId,
-            "slaves" to slavesId
+//            "slaves" to slavesId
         )
     }
 
@@ -42,13 +38,15 @@ class User() {
         this.name = data["name"] as String
         this.chiefId = data["chiefId"] as String
 
-        this.slavesId =
-            (data["slavesId"] as? MutableList<String>)!! // I don't know how do it. Thinking hmmm
-        this.tasksId = (data["tasksId"] as? MutableList<String>)!!
+//        this.slavesId =
+//            (data["slavesId"] as? MutableList<String>)!! // I don't know how do it. Thinking hmmm
+//        this.tasksId = (data["tasksId"] as? MutableList<String>)!!
     }
 
     override fun toString(): String {
-        return "User(email='$email', name='$name', chiefId=$chiefId, slavesId=$slavesId, tasksId=$tasksId)"
+        return "User(email='$email', name='$name', chiefId=$chiefId, " +
+//                "slavesId=$slavesId, tasksId=$tasksId" +
+                ")"
     }
 
 //    constructor(userInfo: Document) : this() {

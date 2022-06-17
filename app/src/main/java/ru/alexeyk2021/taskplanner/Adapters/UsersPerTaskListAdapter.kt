@@ -3,12 +3,9 @@ package ru.alexeyk2021.taskplanner.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexeyk2021.taskplanner.R
-import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.User
 
 class UsersViewOrder(itemView: View) : RecyclerView.ViewHolder(itemView) {

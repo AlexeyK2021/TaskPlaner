@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_sign_in">Войдите или зарегистрируйтесь</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="login_failed">Вход не удался</string>
+    <string name="enter_email">Ваш Email</string>
+    <string name="enter_passwd">Ваш пароль</string>
+    <string name="login">Войти</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="enter_name">Ваше имя</string>
+    <string name="exit">Выйти</string>
+    <string name="back">Назад</string>
+    <string name="add_task">Создать задачу</string>
+    <string name="task_working">В работе</string>
+    <string name="task_not_started">Не начата</string>
+    <string name="task_done">Готова</string>
+    <string name="add">Добавить</string>
+    <string name="finish_adding">Закончить</string>
+    <string name="task_name">Имя задачи</string>
+    <string name="task_description">Описание</string>
+    <string name="users_for_the_task">Список пользователей</string>
+    <string name="task_not_started_change">Начать</string>
+    <string name="task_working_change">Завершить</string>
+    <string name="task_done_change">Завершить</string>
+    <string name="task_working_list">В работе</string>
+    <string name="task_not_started_list">Не начатые</string>
+    <string name="task_done_list">Завершенные</string>
+</resources>

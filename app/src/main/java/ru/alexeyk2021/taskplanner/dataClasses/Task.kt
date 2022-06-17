@@ -1,7 +1,5 @@
 package ru.alexeyk2021.taskplanner.dataClasses
 
-import com.google.firebase.firestore.QueryDocumentSnapshot
-
 
 class Task() {
     var userEmail: String = ""
@@ -9,7 +7,8 @@ class Task() {
     var startDate: String = ""
     var endDate: String = ""
     var description: String = ""
-    var status: Int = 0
+    var status: Int = 1
+    var usersEmails: List<String> = mutableListOf()
 
     constructor(
         userEmail: String,
@@ -17,7 +16,8 @@ class Task() {
         startDate: String,
         endDate: String,
         description: String = "",
-        status: Int = TaskStatus.NOT_STARTED.ordinal
+        status: Int = TaskStatus.NOT_STARTED.ordinal,
+        usersEmails: List<String> = mutableListOf()
     ) : this() {
         this.userEmail = userEmail
         this.name = name
@@ -25,19 +25,21 @@ class Task() {
         this.endDate = endDate
         this.description = description
         this.status = status
+        this.usersEmails = usersEmails
 
 //        Firebase.firestore.collection("tasks").get().addOnCompleteListener {
 //            id = it.result.documents.size
 //        }
     }
 
-    constructor(data: HashMap<String, String>) : this() {
-        this.userEmail = data["userId"] as String
-        this.name = data["name"] as String
-        this.startDate = data["startDate"] as String
-        this.endDate = data["endDate"] as String
-        this.description = data["description"] as String
-        this.status = data["status"]!!.toInt()
+    constructor(data: MutableMap<String, Any?>) : this() {
+        this.userEmail = data["userEmail"].toString()
+        this.name = data["name"].toString()
+        this.startDate = data["startDate"].toString()
+        this.endDate = data["endDate"].toString()
+        this.description = data["description"].toString()
+        this.status = data["status"].toString().toInt()
+        this.usersEmails = data["usersEmails"] as List<String>
     }
 
     fun getInfo(): HashMap<String, Any> = hashMapOf(
@@ -46,7 +48,8 @@ class Task() {
         "startDate" to startDate,
         "endDate" to endDate,
         "description" to description,
-        "status" to status
+        "status" to status,
+        "usersEmails" to usersEmails
     )
 
 

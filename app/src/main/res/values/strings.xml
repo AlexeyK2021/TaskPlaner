@@ -1,20 +1,21 @@
 <resources>
-    <string name="app_name">TaskPlanner</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="app_name" translatable="false">TaskPlaner</string>
+    <!--Titles-->
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
+    <string name="title_activity_register" translatable="false">RegisterActivity</string>
+    <string name="title_activity_edit_task" translatable="false">Edit task</string>
+    <string name="title_activity_create_task" translatable="false">Create task</string>
+
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+
     <string name="login_failed">"Login failed"</string>
     <string name="enter_email">Enter email</string>
     <string name="enter_passwd">Enter password</string>
     <string name="login">Enter</string>
     <string name="register">Register</string>
     <string name="enter_name">Enter name</string>
+
     <string name="exit">Exit</string>
     <string name="back">Go back</string>
     <string name="add_task">Add task</string>
@@ -23,10 +24,24 @@
     <string name="task_working">Working</string>
     <string name="task_not_started">Not started</string>
     <string name="task_done">Done</string>
+
+    <!--Task statuses for lists-->
+    <string name="task_working_list">Working</string>
+    <string name="task_not_started_list">Not started</string>
+    <string name="task_done_list">Done</string>
+
+    <!--Task statuses to change-->
+    <string name="task_working_change">Done</string>
+    <string name="task_not_started_change">Start</string>
+    <string name="task_done_change">Done</string>
+
     <string name="add">Add</string>
     <string name="finish_adding">Finish adding</string>
+
+    <!--Task creation-->
     <string name="task_name">Task name</string>
     <string name="task_description">Task description</string>
     <string name="users_for_the_task">Users for the task</string>
+
 
 </resources>
