@@ -101,7 +101,6 @@
         android:layout_height="wrap_content"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="@id/user_finder"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/user_finder"
         app:layout_constraintTop_toTopOf="@id/user_finder" />
 

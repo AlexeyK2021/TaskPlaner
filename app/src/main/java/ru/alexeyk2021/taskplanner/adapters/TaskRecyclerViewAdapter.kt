@@ -1,8 +1,7 @@
-package ru.alexeyk2021.taskplanner.Adapters
+package ru.alexeyk2021.taskplanner.adapters
 
 
 import android.content.Intent
-import android.provider.Settings.System.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package ru.alexeyk2021.taskplanner.Adapters
+package ru.alexeyk2021.taskplanner.adapters
 
 import android.view.LayoutInflater
 import android.view.View

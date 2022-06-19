@@ -11,8 +11,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import ru.alexeyk2021.taskplanner.Adapters.ChooseTaskSortingAdapter
-import ru.alexeyk2021.taskplanner.Adapters.TaskRecyclerView
+import ru.alexeyk2021.taskplanner.adapters.ChooseTaskSortingAdapter
+import ru.alexeyk2021.taskplanner.adapters.TaskRecyclerView
 import ru.alexeyk2021.taskplanner.R
 import ru.alexeyk2021.taskplanner.SelectingTasks
 import ru.alexeyk2021.taskplanner.dataClasses.Task

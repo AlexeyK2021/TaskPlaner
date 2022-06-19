@@ -41,7 +41,7 @@
     <!--Task creation-->
     <string name="task_name">Task name</string>
     <string name="task_description">Task description</string>
-    <string name="users_for_the_task">Users for the task</string>
+    <string name="users_for_the_task">Users emails for the task</string>
 
 
 </resources>

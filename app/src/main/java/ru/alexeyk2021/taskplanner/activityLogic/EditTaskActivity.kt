@@ -10,7 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import ru.alexeyk2021.taskplanner.Adapters.UsersPerTaskListAdapter
+import ru.alexeyk2021.taskplanner.adapters.UsersPerTaskListAdapter
 import ru.alexeyk2021.taskplanner.R
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.TaskStatus
@@ -30,13 +30,6 @@ class EditTaskActivity : AppCompatActivity() {
         var cachedUsersData = mutableListOf<DocumentSnapshot>()
         val task = Task(intent.getSerializableExtra("TASK") as MutableMap<String, Any?>)
 
-        Firebase.firestore.collection("users").get().addOnSuccessListener {
-            Log.d(ContentValues.TAG, "Caching user data")
-            cachedUsersData = it.documents
-        }.addOnFailureListener {
-            Log.d(ContentValues.TAG, "Caching failed: ${it.message.toString()}")
-        }
-
         val statusButton1 = binding.changeTaskStatus
         val taskName = binding.taskName
         val startDate = binding.startDate
@@ -48,6 +41,7 @@ class EditTaskActivity : AppCompatActivity() {
         val usersPerTaskList = binding.usersPerTask
         val users = mutableListOf<User>()
         val adapter = UsersPerTaskListAdapter(users)
+        val usersEmails = mutableListOf<String>()
 
         taskName.text = Editable.Factory.getInstance().newEditable(task.name)
         startDate.text = Editable.Factory.getInstance().newEditable(task.startDate)
@@ -56,15 +50,23 @@ class EditTaskActivity : AppCompatActivity() {
 
         usersPerTaskList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        task.usersEmails.forEach { user ->
-            if (cachedUsersData.find { it.data?.get("email") == user } != null) {
-                val foundUser =
-                    User(cachedUsersData.find { it.data?.get("email") == user }!!.data!!)
-                users.add(foundUser)
-            }
-        }
         usersPerTaskList.adapter = adapter
+
+        Firebase.firestore.collection("users").get().addOnSuccessListener {results->
+            Log.d(ContentValues.TAG, "Caching user data")
+            cachedUsersData = results.documents
+            task.usersEmails.forEach { user ->
+                usersEmails.add(user)
+                if (cachedUsersData.find { it.data?.get("email") == user } != null) {
+                    val foundUser =
+                        User(cachedUsersData.find { it.data?.get("email") == user }!!.data!!)
+                    users.add(foundUser)
+                    adapter.notifyItemInserted(0)
+                }
+            }
+        }.addOnFailureListener {
+            Log.d(ContentValues.TAG, "Caching failed: ${it.message.toString()}")
+        }
 
         addUser.setOnClickListener {
             val userEmail = userFinder.text.toString()
@@ -74,9 +76,9 @@ class EditTaskActivity : AppCompatActivity() {
                 val foundUser =
                     User(cachedUsersData.find { it.data?.get("email") == userEmail }!!.data!!)
                 users.add(foundUser)
+                userFinder.text = Editable.Factory.getInstance().newEditable("")
+                adapter.notifyItemInserted(0)
             }
-            userFinder.text = Editable.Factory.getInstance().newEditable("")
-            adapter.notifyItemInserted(0)
         }
 
         statusButton1.setOnClickListener {
@@ -88,7 +90,7 @@ class EditTaskActivity : AppCompatActivity() {
             }
             statusButton1.text = "OK"
 //            Firebase.firestore.collection("tasks").whereEqualTo("name", task.name).get()
-//                .addOnSuccessListener {
+//                .addOnSuccr_name) must not be nullessListener {
 //                    Firebase.firestore.collection("tasks").document(it.documents[0].id)
 //                        .update(task.getInfo())
 //                }
@@ -96,13 +98,12 @@ class EditTaskActivity : AppCompatActivity() {
 
         save.setOnClickListener {
             val userEmail = Firebase.auth.currentUser?.email!!.toString()
-            val usersEmails = mutableListOf<String>()
             usersEmails.add(userEmail)
             users.forEach {
                 usersEmails.add(it.email)
             }
             val newTask = Task(
-                userEmail = userEmail,
+                userEmail = task.userEmail,
                 name = taskName.text.toString(),
                 startDate = startDate.text.toString(),
                 endDate = endDate.text.toString(),

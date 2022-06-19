@@ -1,4 +1,4 @@
-package ru.alexeyk2021.taskplanner.Adapters
+package ru.alexeyk2021.taskplanner.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,7 @@ class UsersPerTaskListAdapter(private val users: List<User>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewOrder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.sort_tasks_button_item, parent, false)
+            .inflate(R.layout.user_finder_item, parent, false)
         return UsersViewOrder(itemView)
     }
 

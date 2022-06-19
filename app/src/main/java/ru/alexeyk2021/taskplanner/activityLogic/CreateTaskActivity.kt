@@ -11,7 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import ru.alexeyk2021.taskplanner.Adapters.UsersPerTaskListAdapter
+import ru.alexeyk2021.taskplanner.adapters.UsersPerTaskListAdapter
 import ru.alexeyk2021.taskplanner.dataClasses.Task
 import ru.alexeyk2021.taskplanner.dataClasses.User
 import ru.alexeyk2021.taskplanner.databinding.ActivityCreateTaskBinding
@@ -131,9 +131,9 @@ class CreateTaskActivity : AppCompatActivity() {
                 val foundUser =
                     User(cachedUsersData.find { it.data?.get("email") == userEmail }!!.data!!)
                 users.add(foundUser)
+                userFinder.text = Editable.Factory.getInstance().newEditable("")
+                adapter.notifyItemInserted(0)
             }
-            userFinder.text = Editable.Factory.getInstance().newEditable("")
-            adapter.notifyItemInserted(0)
         }
     }
 

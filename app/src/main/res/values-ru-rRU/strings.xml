@@ -18,7 +18,7 @@
     <string name="finish_adding">Закончить</string>
     <string name="task_name">Имя задачи</string>
     <string name="task_description">Описание</string>
-    <string name="users_for_the_task">Список пользователей</string>
+    <string name="users_for_the_task">Список email-адресов пользователей</string>
     <string name="task_not_started_change">Начать</string>
     <string name="task_working_change">Завершить</string>
     <string name="task_done_change">Завершить</string>
